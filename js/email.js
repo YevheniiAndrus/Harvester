@@ -38,7 +38,7 @@ async function makeRecord(userEmail){
             throw new Error('Error making the record: ${errorData}');
         }
 
-        const data = await response.json();
+        const data = await response.text();
         completeRecord(data);
     }
     catch(error){
