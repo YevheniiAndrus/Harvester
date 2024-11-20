@@ -16,3 +16,24 @@ document.getElementById('submit-button').addEventListener('click', function() {
     // Optionally clear the input field after processing
     document.getElementById('email-input').value = '';
 });
+
+function makeRecord(userEmail){
+    $.ajax({
+        method: 'POST',
+        url: _config.api.invokeUrl + '/users',
+        data: JSON.stringify({
+            UserEmail: userEmail
+        }),
+        contentType: 'application/json',
+        success: completeRecord,
+        error: function ajaxError(jqXHR, textStatus, errorThrown) {
+            console.error('Error making the record: ', textStatus, ', Details: ', errorThrown);
+            console.error('Response: ', jqXHR.responseText);
+            alert('An error occured when making the record:\n' + jqXHR.responseText);
+        }
+    })
+}
+
+function completeRecord(result){
+    console.log('Response recieved from API: ', result)
+}
