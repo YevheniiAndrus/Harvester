@@ -9,6 +9,8 @@ document.getElementById('submit-button').addEventListener('click', function() {
         return;
     }
 
+    makeRecord(email)
+
     // Perform some processing (e.g., log or send the email somewhere)
     console.log(`Email submitted: ${email}`);
     alert(`Thank you! The email "${email}" has been submitted.`);
