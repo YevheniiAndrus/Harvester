@@ -21,7 +21,7 @@ document.getElementById('submit-button').addEventListener('click', function() {
 
 async function makeRecord(userEmail){
     try{
-        const response = await fetch('${_config.api.invokeUrl}/users',{
+        const response = await fetch('${_config.api.invokeUrl}',{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json'
