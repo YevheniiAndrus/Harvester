@@ -19,6 +19,31 @@ document.getElementById('submit-button').addEventListener('click', function() {
     document.getElementById('email-input').value = '';
 });
 
+document.getElementById('show-emails-button').addEventListener('click', async function(){
+    console.log('Client to make request show all the emails')
+
+    try{
+        const response = await fetch('https://z0l76y3yr6.execute-api.eu-central-1.amazonaws.com/dev/users', {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+        })
+
+        if(!response.ok){
+            const errorData = await response.text();
+            throw new Error('Error reading DB: ${errorData}');
+        }
+
+        const data = await response.json();
+        console.log(data)
+    }
+    catch(error){
+        console.error('Error reading DB: ', error);
+        alert('An error occured while reading DB');
+    }
+});
+
 async function makeRecord(userEmail){
     console.log('Writing user email - ', userEmail)
 
