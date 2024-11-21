@@ -37,6 +37,15 @@ document.getElementById('show-emails-button').addEventListener('click', async fu
 
         const data = await response.json();
         console.log(data)
+
+        const resultsContainer = document.getElementById('results-container');
+        resultsContainer.innerHTML = '';
+
+        data.forEach(element => {
+            const emailElement = document.createElement('div');
+            emailElement.textContent = element.UserEmail;
+            resultsContainer.appendChild(emailElement);
+        });
     }
     catch(error){
         console.error('Error reading DB: ', error);
