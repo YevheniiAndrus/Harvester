@@ -1,0 +1,20 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register Complete</title>
+</head>
+<body>
+  <section class="register-complete">
+    <h1>Thank You for Registering!</h1>
+    <p id="summary"></p>
+  </section>
+  <script>
+    // Display the summary of user input
+    const name = localStorage.getItem('name');
+    const age = localStorage.getItem('age');
+    document.getElementById('summary').innerText = `Name: ${name}, Age: ${age}`;
+  </script>
+</body>
+</html>
