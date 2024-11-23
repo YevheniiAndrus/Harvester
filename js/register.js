@@ -23,6 +23,7 @@ async function makeRecord(userName, userAge){
 
     if(!response.ok){
         const errorData = await response.text();
+        console.log("Error recieved: ", errorData);
         throw new Error('Error making the record: ${errorData}');
     }
 
