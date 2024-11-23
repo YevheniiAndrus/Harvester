@@ -7,6 +7,33 @@ function saveToStorage(key, value) {
 function getFromStorage(key) {
   return localStorage.getItem(key);
 }
+
+async function makeRecord(userName, userAge){
+  try{
+    const response = await fetch('https://z0l76y3yr6.execute-api.eu-central-1.amazonaws.com/dev/users',{
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            UserName: userName,
+            UserAge: userAge
+        })
+    });
+
+    if(!response.ok){
+        const errorData = await response.text();
+        throw new Error('Error making the record: ${errorData}');
+    }
+
+    const data = await response.text();
+    console.log("Response recieved: ", data)
+}
+catch(error){
+    console.error('Error making the record: ', error);
+    alert('An error ocurred when making the record:\n${error.message}');
+}
+}
   
 // Step 1: Handle the "Next" button click on step 1
 if (document.getElementById('next-name-button')) {
@@ -44,8 +71,9 @@ if (document.getElementById('next-age-button')) {
   
 if(document.getElementById('complete-registration-button')){
   document.getElementById('complete-registration-button').addEventListener('click', function(){
-    user_name = getFromStorage('name')
-    user_age = getFromStorage('age')
-    console.log('name: ', user_name, 'age: ', user_age)
+    userName = getFromStorage('name')
+    userAge = getFromStorage('age')
+
+    makeRecord(userName, userAge)
   });
 }
