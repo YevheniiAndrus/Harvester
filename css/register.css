@@ -1,19 +1,43 @@
 /* Reset default browser margins */
 body {
-    margin: 0; /* Remove default margin */
-    height: 100vh; /* Set height to full viewport */
-    display: flex; /* Enable flexbox for centering */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    background-color: #f3f3f3; /* Optional background color */
-  }
-  
-  /* Style for the content box */
-  .content {
-    text-align: center; /* Center text content inside */
-    background-color: #ffffff; /* Optional box background */
-    padding: 20px; /* Optional padding */
-    border-radius: 10px; /* Optional rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
-  }
-  
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(25, 220, 128, .5);
+}
+
+/* Style for the content box */
+.content {
+  text-align: center; /* Center text content inside */
+  background-color: #ffffff; /* Optional box background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the form elements */
+form {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 15px; /* Space between input and button */
+}
+
+input, button {
+  padding: 10px;
+  width: 100%; /* Make the input and button stretch */
+  max-width: 300px; /* Optional: Set a max width */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  font-size: 16px;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 7px;
+}

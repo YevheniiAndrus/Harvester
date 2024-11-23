@@ -4,17 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Register Complete</title>
+  <link rel="stylesheet" href="../css/register.css">
 </head>
 <body>
   <section class="register-complete">
     <h1>Thank You for Registering!</h1>
-    <p id="summary"></p>
+    <button type="button" id="complete-registration-button">Complete</button>
   </section>
-  <script>
-    // Display the summary of user input
-    const name = localStorage.getItem('name');
-    const age = localStorage.getItem('age');
-    document.getElementById('summary').innerText = `Name: ${name}, Age: ${age}`;
-  </script>
+  <script src="../js/register.js"></script>
 </body>
 </html>
