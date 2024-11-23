@@ -1,0 +1,19 @@
+/* Reset default browser margins */
+body {
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Set height to full viewport */
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: #f3f3f3; /* Optional background color */
+  }
+  
+  /* Style for the content box */
+  .content {
+    text-align: center; /* Center text content inside */
+    background-color: #ffffff; /* Optional box background */
+    padding: 20px; /* Optional padding */
+    border-radius: 10px; /* Optional rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  }
+  
