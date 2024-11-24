@@ -72,6 +72,6 @@ if(document.getElementById('complete-registration-button')){
     userAge = getFromStorage('age')
 
     makeRecord(userName, userAge)
-    window.location.href = 'name.html';
+    window.close()
   });
 }
