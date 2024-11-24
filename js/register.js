@@ -61,10 +61,6 @@ if (document.getElementById('next-age-button')) {
     }
     saveToStorage('age', age);
   
-    // Collect and display all data (for demonstration)
-    const name = getFromStorage('name');
-    alert(`Registration Complete! Name: ${name}, Age: ${age}`);
-  
     // Redirect to a "thank you" or final page (optional)
     window.location.href = 'complete.html';
   });
@@ -76,5 +72,6 @@ if(document.getElementById('complete-registration-button')){
     userAge = getFromStorage('age')
 
     makeRecord(userName, userAge)
+    window.location.href = 'name.html';
   });
 }
