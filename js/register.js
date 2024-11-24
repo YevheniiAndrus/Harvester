@@ -68,10 +68,12 @@ if (document.getElementById('next-age-button')) {
   
 if(document.getElementById('complete-registration-button')){
   document.getElementById('complete-registration-button').addEventListener('click', function(){
-    userName = getFromStorage('name')
-    userAge = getFromStorage('age')
+    userName = getFromStorage('name');
+    userAge = getFromStorage('age');
 
-    makeRecord(userName, userAge)
-    window.close()
+    makeRecord(userName, userAge);
+    thank_text = document.getElementById('thankyou-message');
+    thank_text.textContent = "Please close this page manually";
+    document.getElementById('complete-registration-button').hidden = true;
   });
 }
