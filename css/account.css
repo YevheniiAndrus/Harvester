@@ -4,7 +4,6 @@ body {
     margin: 20px;
     display: flex; /* Use Flexbox for body */
     justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically if needed */
     min-height: 100vh; /* Ensure full-screen height */
     background-color: rgba(25, 220, 128, .5); /* Optional: Add background color */
 }
@@ -14,6 +13,7 @@ h1 {
     text-align: center; /* Center the title */
     color: #333;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 /* Accounts Container */
