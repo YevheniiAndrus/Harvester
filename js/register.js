@@ -103,7 +103,8 @@ if(document.getElementById('upload-photo-button')){
             },
             body: JSON.stringify({
                 fileName,
-                fileType: fileType
+                fileType: fileType,
+                requestType: 'put'
             })
         })
 

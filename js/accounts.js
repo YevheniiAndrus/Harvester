@@ -57,7 +57,8 @@ async function getPresignedUrl(fileName, fileType){
         },
         body: JSON.stringify({
             fileName,
-            fileType: fileType
+            fileType: fileType,
+            requestType: 'get'
         })
     })
 
