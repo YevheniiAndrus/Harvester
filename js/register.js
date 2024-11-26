@@ -1,13 +1,15 @@
-import { User } from "./user";
+// Helper function to save data to localStorage
+function saveToStorage(key, value) {
+  localStorage.setItem(key, value);
+}
+  
+// Helper function to get data from localStorage
+function getFromStorage(key) {
+  return localStorage.getItem(key);
+}
 
-userToRegister = new User();
-
-async function makeUserRecord(){
+async function makeUserRecord(userName, userAge, userUrl){
   try{
-    userName = userToRegister.userName();
-    userAge = userToRegister.userAge();
-    userUrl = userToRegister.userUrl();
-
     console.log("Make record for user: ", 
       userName,
       userAge,
@@ -49,7 +51,8 @@ if (document.getElementById('next-name-button')) {
       alert('Please enter your name.');
       return;
     }
-    userToRegister.addUserName(name);
+
+    saveToStorage('name', name);
     // Redirect to step 2
     window.location.href = 'age.html';
   });
@@ -63,9 +66,9 @@ if (document.getElementById('next-age-button')) {
       alert('Please enter a valid age.');
       return;
     }
-    userToRegister.addUserAge(age);
-  
-    // Redirect to a "thank you" or final page (optional)
+
+    saveToStorage('age', age);
+    // Redirect to a "upload photo" page
     window.location.href = 'photo.html';
   });
 }
@@ -109,7 +112,7 @@ if(document.getElementById('upload-photo-button')){
 
         if (!uploadResponse.ok) throw new Error("File upload failed.");
 
-        userToRegister.addUrl(uploadUrl)
+        saveToStorage('url', uploadUrl);
         statusMessage.textContent = 'File uploaded succesfully! File URL: ${fileUrl}'
 
         window.location.href = 'complete.html';
@@ -124,7 +127,9 @@ if(document.getElementById('upload-photo-button')){
 if(document.getElementById('complete-registration-button')){
   document.getElementById('complete-registration-button').addEventListener('click', function(){
 
-    makeUserRecord();
+    makeUserRecord(getFromStorage('name'),
+                   getFromStorage('age'),
+                  getFromStorage('url'));
     thank_text = document.getElementById('thankyou-message');
     thank_text.textContent = "Please close this page manually";
     document.getElementById('complete-registration-button').hidden = true;
