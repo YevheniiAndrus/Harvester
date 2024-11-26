@@ -8,12 +8,12 @@ function getFromStorage(key) {
   return localStorage.getItem(key);
 }
 
-async function makeUserRecord(userName, userAge, userUrl){
+async function makeUserRecord(userName, userAge, userPhoto){
   try{
     console.log("Make record for user: ", 
       userName,
       userAge,
-      userUrl);
+      userPhoto);
 
     const response = await fetch('https://z0l76y3yr6.execute-api.eu-central-1.amazonaws.com/dev/users',{
         method: 'POST',
@@ -23,7 +23,7 @@ async function makeUserRecord(userName, userAge, userUrl){
         body: JSON.stringify({
             UserName: userName,
             UserAge: userAge,
-            UserUrl: userUrl
+            UserPhoto: userPhoto
         })
     });
 
@@ -112,7 +112,7 @@ if(document.getElementById('upload-photo-button')){
 
         if (!uploadResponse.ok) throw new Error("File upload failed.");
 
-        saveToStorage('url', uploadUrl);
+        saveToStorage('photo', fileName);
         statusMessage.textContent = 'File uploaded succesfully! File URL: ${fileUrl}'
 
         window.location.href = 'complete.html';
@@ -129,7 +129,7 @@ if(document.getElementById('complete-registration-button')){
 
     makeUserRecord(getFromStorage('name'),
                    getFromStorage('age'),
-                  getFromStorage('url'));
+                  getFromStorage('photo'));
     thank_text = document.getElementById('thankyou-message');
     thank_text.textContent = "Please close this page manually";
     document.getElementById('complete-registration-button').hidden = true;
