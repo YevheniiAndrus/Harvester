@@ -24,11 +24,20 @@ async function populateAccounts() {
         data.forEach(account => {
             const accountDiv = document.createElement('div');
             accountDiv.className = 'account';
+
+            userPhotoUrl = getPresignedUrl(account.UserPhoto.PhotoName, 
+                                           account.UserPhoto.PhotoType);
+
+            console.log("Got user photo URL: ", userPhotoUrl);
     
             accountDiv.innerHTML = `
+                <div class="account-photo">
+                    <img src="${userPhotoUrl}" alt="${account.UserName}'s photo" />
+                </div>
                 <div class="account-name">${account.UserName}</div>
                 <div class="account-age">${account.UserAge} years old</div>
             `;
+
             container.appendChild(accountDiv);
         });
     }
@@ -36,6 +45,24 @@ async function populateAccounts() {
         console.error('Error reading DB: ', error);
         alert('An error occured while reading DB');
     }
+}
+
+async function getPresignedUrl(fileName, fileType){
+    console.log("Getting presigned url for ", fileName, "with type ", fileType)
+    // Fetch a pre-signed URL from your backend
+    const response = await fetch('https://vfqzakeujd.execute-api.eu-central-1.amazonaws.com/dev', {
+        method: 'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            fileName,
+            fileType: fileType
+        })
+    })
+
+    const {uploadUrl, fileUrl} = await response.json();
+    return uploadUrl;
 }
 
 // Call the function to populate the container
