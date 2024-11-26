@@ -10,10 +10,13 @@ function getFromStorage(key) {
 
 async function makeUserRecord(userName, userAge, userPhoto){
   try{
+    const photoDetails = JSON.parse(userPhoto);
+
     console.log("Make record for user: ", 
       userName,
       userAge,
-      userPhoto);
+      photoDetails.fileName,
+      photoDetails.fileType);
 
     const response = await fetch('https://z0l76y3yr6.execute-api.eu-central-1.amazonaws.com/dev/users',{
         method: 'POST',
@@ -23,7 +26,10 @@ async function makeUserRecord(userName, userAge, userPhoto){
         body: JSON.stringify({
             UserName: userName,
             UserAge: userAge,
-            UserPhoto: userPhoto
+            UserPhoto: {
+              PhotoName: photoDetails.fileName,
+              PhotoType: photoDetails.fileType
+            }
         })
     });
 
@@ -86,6 +92,7 @@ if(document.getElementById('upload-photo-button')){
 
     const file = fileInput.files[0];
     const fileName = encodeURIComponent(file.name);
+    const fileType = file.type;
 
     try {
         // Fetch a pre-signed URL from your backend
@@ -96,7 +103,7 @@ if(document.getElementById('upload-photo-button')){
             },
             body: JSON.stringify({
                 fileName,
-                fileType: file.type
+                fileType: fileType
             })
         })
 
@@ -106,13 +113,18 @@ if(document.getElementById('upload-photo-button')){
 
         const uploadResponse = await fetch(uploadUrl, {
             method: 'PUT',
-            headers: {'Content-Type': file.type},
+            headers: {'Content-Type': fileType},
             body: file
         });
 
         if (!uploadResponse.ok) throw new Error("File upload failed.");
 
-        saveToStorage('photo', fileName);
+        photoDetails = {
+          fileName: fileName,
+          fileType: fileType
+        };
+
+        saveToStorage('photo', JSON.stringify(photoDetails));
         statusMessage.textContent = 'File uploaded succesfully! File URL: ${fileUrl}'
 
         window.location.href = 'complete.html';
