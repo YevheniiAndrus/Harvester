@@ -21,25 +21,42 @@ async function populateAccounts() {
         const data = await response.json();
         console.log(data)
 
-        data.forEach(account => {
+        for (const account of data) {
             const accountDiv = document.createElement('div');
             accountDiv.className = 'account';
 
-            userPhotoUrl = getPresignedUrl(account.UserPhoto.PhotoName, 
-                                           account.UserPhoto.PhotoType);
+            try {
+                // Wait for the presigned URL
+                const userPhotoUrl = await getPresignedUrl(
+                    account.UserPhoto.PhotoName,
+                    account.UserPhoto.PhotoType
+                );
 
-            console.log("Got user photo URL: ", userPhotoUrl);
-    
-            accountDiv.innerHTML = `
-                <div class="account-photo">
-                    <img src="${userPhotoUrl}" alt="${account.UserName}'s photo" />
-                </div>
-                <div class="account-name">${account.UserName}</div>
-                <div class="account-age">${account.UserAge} years old</div>
-            `;
+                console.log('Got user photo URL: ', userPhotoUrl);
 
-            container.appendChild(accountDiv);
-        });
+                accountDiv.innerHTML = `
+                    <div class="account-photo">
+                        <img src="${userPhotoUrl}" alt="${account.UserName}'s photo" />
+                    </div>
+                    <div class="account-name">${account.UserName}</div>
+                    <div class="account-age">${account.UserAge} years old</div>
+                `;
+
+                container.appendChild(accountDiv);
+            } catch (error) {
+                console.error('Error fetching presigned URL for photo: ', error);
+                // Handle missing photo (e.g., show placeholder image)
+                accountDiv.innerHTML = `
+                    <div class="account-photo">
+                        <img src="placeholder.jpg" alt="Placeholder photo" />
+                    </div>
+                    <div class="account-name">${account.UserName}</div>
+                    <div class="account-age">${account.UserAge} years old</div>
+                `;
+
+                container.appendChild(accountDiv);
+            }
+        }
     }
     catch(error){
         console.error('Error reading DB: ', error);
